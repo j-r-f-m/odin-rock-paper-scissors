@@ -1,31 +1,42 @@
 function computerPlay() {
-    // define array with the different game elements
-    const elements = ["rock", "paper", "scissors"];
-    // create random number between 0 and 3
+    /**
+     * cpu player choice
+     * a random element from an array is chosen and returned
+     */
+    const elements = ["rock", "paper", "scissors"];   
     let randomElement = Math.floor(Math.random() * 3);
-    // element choosen by computer
     choosenElement = elements.at(randomElement);
     return choosenElement
 }
 
 
 function playRound(playerSelection, computerSelection) {
-    // convert player input to lower case
+    /**
+     * the winner of one round is determined
+     * the gameState()-function is called with the round winner as argument
+     */
+   
     lowerCasePlayerSelection = playerSelection.toLowerCase()
-    //console.log(lowerCasePlayerSelection)
-    // player winning conditions
+   
     if (lowerCasePlayerSelection == 'rock' && computerSelection == 'scissors') {
+        gameState('player')
         return 'You win! Rock beats Scissors.'
     } else if (lowerCasePlayerSelection == 'scissors' && computerSelection == 'paper') {
+        // pass the winner of the current round to the gameState-function
+        gameState('player')
         return 'You win! Scissors beats Paper.'
     } else if (lowerCasePlayerSelection == 'paper' && computerSelection == 'rock') {
+        gameState('player')
         return 'You win! Paper beats Rock.'
     // computer winning conditions    
     } else if (lowerCasePlayerSelection == 'scissors' && computerSelection == 'rock') {
+        gameState('computer')
         return 'You lose! Rock beats Scissors.'
     } else if (lowerCasePlayerSelection == 'paper' && computerSelection == 'scissors') {
+        gameState('computer')
         return 'You lose! Scissors beats Paper.'
     } else if (lowerCasePlayerSelection == 'rock' && computerSelection == 'paper') {
+        gameState('computer')
         return 'You lose! Paper beats Rock.'
     // draw
     } else if (lowerCasePlayerSelection == computerSelection) {
@@ -33,35 +44,88 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+function gameState (winner) {
+    /**
+     * updates the score board
+     * the playAgain()-function is called to check if the game has to be reset
+     */
 
-function game() {
-    
-    // initial score of players
-    let scorePlayer = 0;
-    let scoreComputer = 0;
-    let countDraw = 0;
-    // five round game
-    for (let i = 0; i < 5; i++) {
-        // get player input
-        let playerSelection = prompt("Choose your weapon!", 'Rock');
-        let computerSelection = computerPlay();
-        // save result of game to variable
-        let roundResult = playRound(playerSelection,computerSelection);
-        console.log(`Player choice: ${playerSelection} | Computer choice: ${computerSelection}`)
-        console.log(roundResult)
-        // turn return string into array to determin winner
-        let resultArr = roundResult.split("!")
-        // DEBUG console.log(resultArr)
-        if (resultArr[0] == 'You win') {
-            scorePlayer += 1
-        } else if (resultArr[0] == 'You lose') {
-            scoreComputer += 1
-        } else {
-            countDraw += 1;
-        }
+    if (winner == 'player') {
+        const divPlayerScore = document.querySelector('#playerScore');
+        PLAYER_SCORE += 1;
+        divPlayerScore.textContent = PLAYER_SCORE.toString();
+        console.log(PLAYER_SCORE)
+        
+        
+    } else if (winner == 'computer') {
+        const divComputerScore = document.querySelector('#computerScore');
+        COMPUTER_SCORE += 1;
+        divComputerScore.textContent = COMPUTER_SCORE.toString();
+        console.log('com' + COMPUTER_SCORE)
+        
     }
-    console.log(`Player Score: ${scorePlayer} | Computer Score: ${scoreComputer} | Draw Count: ${countDraw}`)
+
+    playAgain()
+
 }
 
-// call game funciton
-game()
+
+
+function playAgain() {
+    /**
+     * it is determined if the game has to be reset
+     */
+    let again;
+    if (PLAYER_SCORE == 5) {       
+    alert("Your Win!\nPlay again?"); 
+    again = true;   
+    } else if (COMPUTER_SCORE == 5) {
+        alert("Your Lose!\nPlay again?"); 
+        again = true; 
+    }
+
+    console.log(again)
+    if (again) {
+        // reset scores of the players
+        const divPlayerScore = document.querySelector('#playerScore');
+        PLAYER_SCORE = 0;
+        divPlayerScore.textContent = PLAYER_SCORE.toString();
+
+        const divComputerScore = document.querySelector('#computerScore');
+        COMPUTER_SCORE = 0;
+        divComputerScore.textContent = COMPUTER_SCORE.toString();
+    }
+ 
+}
+
+// initilize game state variables
+let PLAYER_SCORE = 0;
+let COMPUTER_SCORE = 0;
+let ROUNDS_PLAYED = 0;
+
+
+
+const btnRock = document.querySelector('#btn-rock');
+btnRock.addEventListener('click', () => {
+    let cpu = computerPlay();
+    roundOutcome = playRound('rock', cpu);
+    console.log(roundOutcome);
+    
+});
+
+const btnPaper = document.querySelector('#btn-paper');
+btnPaper.addEventListener('click', () => {
+    let cpu = computerPlay();
+    roundOutcome = playRound('paper', cpu);
+    console.log(roundOutcome);
+});
+
+const btnScissors = document.querySelector('#btn-scissors');
+btnScissors.addEventListener('click', () => {
+    let cpu = computerPlay();
+    roundOutcome = playRound('scissors', cpu);
+    console.log(roundOutcome);
+});
+
+
+
