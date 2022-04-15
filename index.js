@@ -19,27 +19,36 @@ function playRound(playerSelection, computerSelection) {
     lowerCasePlayerSelection = playerSelection.toLowerCase()
    
     if (lowerCasePlayerSelection == 'rock' && computerSelection == 'scissors') {
-        gameState('player')
+        // current player choice
+        currentChoices('rock', 'scissors');
+        gameState('player');
+        const divPlayerChoice = document.createElement('div');
         return 'You win! Rock beats Scissors.'
     } else if (lowerCasePlayerSelection == 'scissors' && computerSelection == 'paper') {
         // pass the winner of the current round to the gameState-function
-        gameState('player')
+        currentChoices('scissors', 'paper');
+        gameState('player');
         return 'You win! Scissors beats Paper.'
     } else if (lowerCasePlayerSelection == 'paper' && computerSelection == 'rock') {
-        gameState('player')
+        currentChoices('paper', 'rock');
+        gameState('player');
         return 'You win! Paper beats Rock.'
     // computer winning conditions    
     } else if (lowerCasePlayerSelection == 'scissors' && computerSelection == 'rock') {
+        currentChoices('scissors', 'rock')
         gameState('computer')
         return 'You lose! Rock beats Scissors.'
     } else if (lowerCasePlayerSelection == 'paper' && computerSelection == 'scissors') {
+        currentChoices('paper', 'scissors')
         gameState('computer')
         return 'You lose! Scissors beats Paper.'
     } else if (lowerCasePlayerSelection == 'rock' && computerSelection == 'paper') {
+        currentChoices('rock', 'paper')
         gameState('computer')
         return 'You lose! Paper beats Rock.'
     // draw
     } else if (lowerCasePlayerSelection == computerSelection) {
+        currentChoices(lowerCasePlayerSelection, computerSelection)
         return 'Draw! Play again.'
     }
 }
@@ -70,6 +79,17 @@ function gameState (winner) {
 }
 
 
+function currentChoices (playerChoice, computerChoice) {
+    /**
+     * create a div with the current choice of the player/cpu
+     */
+    divPlayerChoice = document.querySelector('#player-choice');
+    divPlayerChoice.textContent = playerChoice.toString();
+    divComputerChoice = document.querySelector('#computer-choice');
+    divComputerChoice.textContent = computerChoice.toString();
+    
+}
+
 
 function playAgain() {
     /**
@@ -84,7 +104,7 @@ function playAgain() {
         again = true; 
     }
 
-    console.log(again)
+    
     if (again) {
         // reset scores of the players
         const divPlayerScore = document.querySelector('#playerScore');
@@ -96,6 +116,15 @@ function playAgain() {
         divComputerScore.textContent = COMPUTER_SCORE.toString();
     }
  
+    if (again) {
+        // reset current choices of the players
+        divPlayerChoice = document.querySelector('#player-choice');
+        divPlayerChoice.textContent = 'Choose';
+        divComputerChoice = document.querySelector('#computer-choice');
+        divComputerChoice.textContent = 'Choose';
+    }
+    
+
 }
 
 // initilize game state variables
@@ -104,7 +133,7 @@ let COMPUTER_SCORE = 0;
 let ROUNDS_PLAYED = 0;
 
 
-
+// player choices
 const btnRock = document.querySelector('#btn-rock');
 btnRock.addEventListener('click', () => {
     let cpu = computerPlay();
@@ -127,5 +156,8 @@ btnScissors.addEventListener('click', () => {
     console.log(roundOutcome);
 });
 
+
+
+// current choices 
 
 
