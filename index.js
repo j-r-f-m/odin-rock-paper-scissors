@@ -22,33 +22,40 @@ function playRound(playerSelection, computerSelection) {
         // current player choice
         currentChoices('rock', 'scissors');
         gameState('player');
+        playAgain();
         const divPlayerChoice = document.createElement('div');
         return 'You win! Rock beats Scissors.'
     } else if (lowerCasePlayerSelection == 'scissors' && computerSelection == 'paper') {
         // pass the winner of the current round to the gameState-function
         currentChoices('scissors', 'paper');
         gameState('player');
+        playAgain();
         return 'You win! Scissors beats Paper.'
     } else if (lowerCasePlayerSelection == 'paper' && computerSelection == 'rock') {
         currentChoices('paper', 'rock');
         gameState('player');
+        playAgain();
         return 'You win! Paper beats Rock.'
     // computer winning conditions    
     } else if (lowerCasePlayerSelection == 'scissors' && computerSelection == 'rock') {
-        currentChoices('scissors', 'rock')
-        gameState('computer')
+        currentChoices('scissors', 'rock');
+        gameState('computer');
+        playAgain();
         return 'You lose! Rock beats Scissors.'
     } else if (lowerCasePlayerSelection == 'paper' && computerSelection == 'scissors') {
-        currentChoices('paper', 'scissors')
-        gameState('computer')
+        currentChoices('paper', 'scissors');
+        gameState('computer');
+        playAgain();
         return 'You lose! Scissors beats Paper.'
     } else if (lowerCasePlayerSelection == 'rock' && computerSelection == 'paper') {
-        currentChoices('rock', 'paper')
-        gameState('computer')
+        currentChoices('rock', 'paper');
+        gameState('computer');
+        playAgain();
         return 'You lose! Paper beats Rock.'
     // draw
     } else if (lowerCasePlayerSelection == computerSelection) {
-        currentChoices(lowerCasePlayerSelection, computerSelection)
+        currentChoices(lowerCasePlayerSelection, computerSelection);
+        playAgain();
         return 'Draw! Play again.'
     }
 }
@@ -74,7 +81,7 @@ function gameState (winner) {
         
     }
 
-    playAgain()
+    
 
 }
 
@@ -96,11 +103,11 @@ function playAgain() {
      * it is determined if the game has to be reset
      */
     let again;
-    if (PLAYER_SCORE == 5) {       
-    alert("Your Win!\nPlay again?"); 
+    if (PLAYER_SCORE == 5) {      
+    setTimeout(function(){ alert("Your Win!\nPlay again?"); }, 50);     
     again = true;   
     } else if (COMPUTER_SCORE == 5) {
-        alert("Your Lose!\nPlay again?"); 
+        setTimeout(function(){ alert("Your Lose!\nPlay again?"); }, 50);
         again = true; 
     }
 

@@ -4,15 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>Rock, Paper, Scissors</h1>
+
+    <div class="header">
+        <div class="header-contetn">
+            Rock - Paper - Scissors
+        </div>
+    </div>
+        
+    <div class="score">
+        <div class="player">Player:</div>
+        <div id="playerScore">0</div>
+        <div class="computer">Computer:</div>
+        <div id="computerScore">0</div>
+    </div>
     
-</body>
     <div id="choices">
-        <div id="player-choice">Choose</div>
-        <div id="computer-choice">Choose</div>
+        <div class="card">
+            <div class="card-title">Your Choice</div>    
+            <div id="player-choice">Choose</div>
+            
+        </div>
+        <div class="card">
+            <div class="card-title">CPU Choice</div> 
+            <div id="computer-choice">Choose</div>
+        </div>
+        
     </div>
 
     <div class="buttons">
@@ -21,12 +41,9 @@
         <button id="btn-scissors">Scissors</button>
     </div>
 
-   <div class="score">
-    <div class="player">Player</div>
-    <div id="playerScore">0</div>
-    <div class="computer">Computer</div>
-    <div id="computerScore">0</div>
-   </div>
+    <div class="footer">
+        <p>Copyright JRFM</p>
+    </div>
     
     
     
